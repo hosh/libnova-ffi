@@ -23,7 +23,7 @@ module LibNova
     #
     # Calculate apparent ecliptical solar coordinates for given julian day. This function includes the
     # effects of aberration and nutation.
-    attach_function :ecl_coords, :ln_get_solar_ecl_coords, [:double, :pointer], :void
+    attach_function :ecl_coords, :ln_get_solar_ecl_coords, [:double, LibNova::Data::LnLatPosn.by_ref], :void
 
     # void ln_get_solar_equ_coords  ( double  JD,
     #                                 struct ln_equ_posn *  position )
@@ -35,7 +35,7 @@ module LibNova
     #
     # Calculate apparent equatorial solar coordinates for given julian day. This function includes the
     # effects of aberration and nutation.
-    attach_function :equ_coords, :ln_get_solar_equ_coords, [:double, :pointer], :void
+    attach_function :equ_coords, :ln_get_solar_equ_coords, [:double, LibNova::Data::EquPosn.by_ref], :void
 
     # void ln_get_solar_geo_coords  ( double  JD,
     #                                 struct ln_rect_posn *   position )
@@ -48,7 +48,7 @@ module LibNova
     #
     # Calculate geocentric coordinates (rectangular) for given julian day. Accuracy 0.01 arc second
     # error - uses VSOP87 solution. Position returned is in units of AU.
-    attach_function :geo_coords, :ln_get_solar_geo_coords, [:double, :pointer], :void
+    attach_function :geo_coords, :ln_get_solar_geo_coords, [:double, LibNova::Data::RectPosn.by_ref], :void
 
     # void ln_get_solar_geom_coords ( double  JD,
     #                                 struct ln_helio_posn *  position )
@@ -61,7 +61,7 @@ module LibNova
     #
     # Calculate geometric coordinates and radius vector accuracy 0.01 arc second error - uses VSOP87 solution.
     # Latitude and Longitude returned are in degrees, whilst radius vector returned is in AU.
-    attach_function :geom_coords, :ln_get_solar_geom_coords, [:double, :pointer], :void
+    attach_function :geom_coords, :ln_get_solar_geom_coords, [:double, LibNova::Data::HelioPosn.by_ref], :void
 
     # double ln_get_solar_rst ( double  JD,
     #                           struct ln_lnlat_posn *  observer,
@@ -75,7 +75,11 @@ module LibNova
     #   rst_time pointer to store rise, set, and time information. Use LibNova::Data::RSTTime
     #
     # Calls get_solar_rst_horizon with horizon set to LN_SOLAR_STANDART_HORIZON.
-    attach_function :rst, :ln_get_solar_rst, [:double, :pointer, :pointer], :double
+    attach_function :rst, :ln_get_solar_rst,
+                    [ :double,
+                      LibNova::Data::LnLatPosn.by_ref,
+                      LibNova::Data::RSTTime.by_ref ], :double
+
 
     # double ln_get_solar_sdiam ( double  JD )
     #

@@ -22,7 +22,7 @@ module LibNova
     #   date  Pointer to new calendar date. Use LibNova::Data::Date
     #
     # Calculate the date from the Julian day
-    attach_function :date, :ln_get_date, [:double, :pointer], :void
+    attach_function :date, :ln_get_date, [:double, LibNova::Data::Date.by_ref], :void
 
     # int ln_get_date_from_mpc  ( struct ln_date *  date,
     #                             char *  mpc_date )
@@ -37,7 +37,7 @@ module LibNova
     #   0 for valid date
     #
     # Calculate the local date from the a MPC packed date. See http://cfa-www.harvard.edu/iau/info/PackedDates.html for info.
-    attach_function :date_from_mpc, :ln_get_date_from_mpc, [:pointer, :string], :void
+    attach_function :date_from_mpc, :ln_get_date_from_mpc, [LibNova::Data::Date.by_ref, :string], :void
 
     # void ln_get_date_from_sys ( struct ln_date *  date )
     #
@@ -47,7 +47,7 @@ module LibNova
     #   date  Pointer to store date. Use LibNova::Data::Date
     #
     # Calculate local date from system date.
-    attach_function :date_from_sys, :ln_get_date_from_sys, [:pointer], :void
+    attach_function :date_from_sys, :ln_get_date_from_sys, [LibNova::Data::Date.by_ref], :void
 
     # unsigned int ln_get_day_of_week ( struct ln_date *  date )
     #
@@ -59,14 +59,14 @@ module LibNova
     #   Day of the week
     #
     # Calculate the day of the week. Returns 0 = Sunday .. 6 = Saturday
-    attach_function :day_of_week, :ln_get_day_of_week, [:pointer], :uint
+    attach_function :day_of_week, :ln_get_day_of_week, [LibNova::Data::Date.by_ref], :uint
 
     # void ln_get_local_date (double JD, struct ln_zonedate * zonedate)
     # Get local date from Julian Day
     # Parameters
     #   jd       Julian Day
     #   zonedate Pointer to store local date. Use LibNova::Data::ZoneDate
-    attach_function :local_date, :ln_get_local_date, [:double, :pointer], :void
+    attach_function :local_date, :ln_get_local_date, [:double, LibNova::Data::ZoneDate.by_ref], :void
 
     # double ln_get_julian_day  ( struct ln_date *  date )
     #
@@ -78,7 +78,7 @@ module LibNova
     #   Julian day
     #
     # Calculate the julian day from a calendar day. Valid for positive and negative years but not for negative JD.
-    attach_function :julian_day, :ln_get_julian_day, [:pointer], :double
+    attach_function :julian_day, :ln_get_julian_day, [LibNova::Data::Date.by_ref], :double
 
     # double ln_get_julian_from_mpc ( char *  mpc_date )
     #
@@ -120,7 +120,7 @@ module LibNova
     # Returns:
     #   Julian day (UT)
     # Calculate Julian day (UT) from zone date
-    attach_function :julian_local_date, :ln_get_julian_local_date, [:pointer], :double
+    attach_function :julian_local_date, :ln_get_julian_local_date, [LibNova::Data::ZoneDate.by_ref], :double
 
     # void ln_get_timet_from_julian ( double  JD,
     #                                 time_t *  in_time)
