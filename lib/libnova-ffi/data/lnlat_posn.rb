@@ -12,7 +12,7 @@ module LibNova
       # http://libnova.sourceforge.net/structln__lnlat__posn.html
 
       layout :lng, :double, # longitude (degrees)
-             :lat, :double, # latitude (degrees)
+             :lat, :double  # latitude (degrees)
 
     end
   end

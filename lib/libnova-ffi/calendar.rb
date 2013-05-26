@@ -1,4 +1,6 @@
 require 'ffi'
+require 'libnova-ffi/data/date'
+require 'libnova-ffi/data/zone_date'
 
 module LibNova
   module Calendar
@@ -59,6 +61,13 @@ module LibNova
     # Calculate the day of the week. Returns 0 = Sunday .. 6 = Saturday
     attach_function :day_of_week, :ln_get_day_of_week, [:pointer], :uint
 
+    # void ln_get_local_date (double JD, struct ln_zonedate * zonedate)
+    # Get local date from Julian Day
+    # Parameters
+    #   jd       Julian Day
+    #   zonedate Pointer to store local date. Use LibNova::Data::ZoneDate
+    attach_function :local_date, :ln_get_local_date, [:double, :pointer], :void
+
     # double ln_get_julian_day  ( struct ln_date *  date )
     #
     # Calculate the julian day from date.
@@ -88,7 +97,7 @@ module LibNova
     # Returns:
     #   Julian day (UT)
     # Calculate the julian day (UT) from the local system time
-    attach_function :julian_from_sys, :ln_get_julian_from_sys, nil, :double
+    attach_function :julian_from_sys, :ln_get_julian_from_sys, [], :double
 
     # double ln_get_julian_from_timet ( time_t *  in_time  )
     # NOT IMPLEMENTED

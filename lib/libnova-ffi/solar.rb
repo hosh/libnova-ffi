@@ -1,4 +1,9 @@
 require 'ffi'
+require 'libnova-ffi/data/lnlat_posn'
+require 'libnova-ffi/data/equ_posn'
+require 'libnova-ffi/data/rect_posn'
+require 'libnova-ffi/data/helio_posn'
+require 'libnova-ffi/data/rst_time'
 
 module LibNova
   module Solar
@@ -70,7 +75,7 @@ module LibNova
     #   rst_time pointer to store rise, set, and time information. Use LibNova::Data::RSTTime
     #
     # Calls get_solar_rst_horizon with horizon set to LN_SOLAR_STANDART_HORIZON.
-    attach_function :rst, :ln_get_solar_rst, [:double, :pointer, :pointer], :void
+    attach_function :rst, :ln_get_solar_rst, [:double, :pointer, :pointer], :double
 
     # double ln_get_solar_sdiam ( double  JD )
     #
